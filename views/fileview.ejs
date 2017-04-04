@@ -1,0 +1,41 @@
+<% include partial/header %>
+
+<%
+if(foundFiles.length > 0) {
+    var orderfiles = new Array();
+    var vendorfiles = new Array();
+    for(i =0; i < foundFiles.length; i++) {
+        if(foundFiles[i].fieldname == 'orderfile') {
+            orderfiles.push(foundFiles[i]);
+        } else {
+            vendorfiles.push(foundFiles[i]);
+        }
+    }
+}
+%>
+
+<h3>Order Files</h3>
+<%
+orderfiles.forEach(item => {
+    var name = item.filename;
+%>
+    <a href="/files/<%=name%>"><%=name%></a>
+<%
+});
+%>
+<a class="btn btn-info" href="/files/orders/">Show All Orders</a>
+<a class="btn btn-info" href="/files/paid/">Show All Paid Orders</a>
+
+
+
+<h3>Vendor Files</h3>
+<%
+vendorfiles.forEach(item => {
+    var name = item.filename;
+%>
+    <a href="/files/<%=name%>"><%=name%></a>
+<%
+});
+%>
+
+<% include partial/footer %>

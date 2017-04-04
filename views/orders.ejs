@@ -1,0 +1,61 @@
+<% include partial/header %>
+
+<%
+if(success.length > 0) {
+%>
+    <div class="alert alert-success"><%=success%></div>
+<%
+}
+%>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Player ID</th>
+                <th>Year ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% orders.forEach(item => { %>
+                <tr>
+                    <td>
+                        <%=item.playerID%>
+                    </td>
+                    <td>
+                        <%=item.yearID%>
+                    </td>
+                    <td><button data-id="<%=item._id%>" class="btn btn-info">Check/Uncheck</button></td>
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+
+    <button id="pay" class="btn btn-primary" type="button" name="button">Pay!</button>
+
+    <form class="hidden" action="/files/paid" method="post">
+        <input id="pay-order" type="submit" name="" value="Pay Order">
+    </form>
+
+    <script>
+        var idstoremove = [];
+        $("td button").on("click", function() {
+            $(this).toggleClass("btn-warning btn-info");
+            $(this).parent().parent().toggleClass('selected');
+            if (jQuery.inArray($(this).data('id'), idstoremove) == -1) {
+                idstoremove.push($(this).data('id'));
+            } else {
+                var index = idstoremove.indexOf($(this).data('id'));
+                idstoremove.splice(index, 1);
+            }
+        });
+
+        $("#pay").on('click', function() {
+            console.log(idstoremove);
+            idstoremove.forEach(item => {
+                $("form").append('<input name="ids[]" type="text" value="'+item+'"/>');
+            });
+            $("#pay-order").click();
+        });
+    </script>
+
+    <% include partial/footer %>

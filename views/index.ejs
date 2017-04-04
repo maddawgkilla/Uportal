@@ -1,0 +1,46 @@
+<% include partial/header %> 
+
+ <% if (success.length > 0){ %>
+
+<div class="alert alert-success"><%= success %></div>
+
+ <% } %>
+
+        <div class="panel panel-default">
+          <div class="panel-body">            
+            <h2 id="panel-header"><span class="glyphicon glyphicon-cloud-upload"></span>Upload Order File</h2>
+            <!--<div class="progress">
+              <div class="progress-bar" role="progressbar"></div>
+            </div>-->
+			<button id="order-upload" class="btn btn-default" type="button">Order File</button>
+			<button id="vendor-upload" class="btn btn-default" type="button">Vendor File</button>
+            <form enctype="multipart/form-data" id="order-form" method="post" action="/order-upload">
+				<!--<input id="order-input" type="file" name="orderfile">-->
+				<label class="btn btn-primary" for="order-input">
+					<input name="orderfile" id="order-input" type="file" style="display:none;" onchange="$('#order-file-info').html($(this).val());">
+					Upload Order File
+				</label>
+				<span class='label label-info' id="order-file-info"></span>
+				<button class="btn btn-success" id="order-submit" type="submit">Submit</button>
+            </form>
+			<form enctype="multipart/form-data" id="vendor-form" method="post" action="/vendor-upload">
+				<!--<input id="vendor-input" type="file" name="vendorfile">-->
+				<label class="btn btn-primary" for="vendor-input">
+					<input name="vendorfile" id="vendor-input" type="file" style="display:none;" onchange="$('#vendor-file-info').html($(this).val());">
+					Upload Vendor File
+				</label>
+				<span class='label label-info' id="vendor-file-info"></span>
+				<button class="btn btn-success" id="vendor-submit" type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+<script src="js/upload.js"></script>
+
+
+<!--<label class="btn btn-primary" for="my-file-selector">
+    <input id="my-file-selector" type="file" style="display:none;" onchange="$('#upload-file-info').html($(this).val());">
+    Button Text Here
+</label>
+<span class='label label-info' id="upload-file-info"></span>-->
+
+<% include partial/footer %>
